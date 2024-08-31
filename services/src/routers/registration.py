@@ -29,16 +29,23 @@ async def userRegistration(payload:UserData):
     
 @router.post('/login',status_code=status.HTTP_200_OK)
 def userLogin(payload:UserLogin):
-    try:
+    # try:
          db = DButils()
          user_data = db.select_query("userdetails")
          if len(user_data) == 0:
                  return HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="User Not Found")
+         user_found = False
          for data in user_data:
              current_password = pwd_context.verify(payload.password,data['password'])
              if data['username'] == payload.username and current_password:
+                 user_found = True
                  return {
-                      "Login success"
+                      "message":"Login success"
                  }
-    except Exception as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail=f"An error occurred during Login: {str(e)}")
+         if not user_found:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid username or password"
+            )
+    # except Exception as e:
+    #     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail=f"An error occurred during Login: {str(e)}")
