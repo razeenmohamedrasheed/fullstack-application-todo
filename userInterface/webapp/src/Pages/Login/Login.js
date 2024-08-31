@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './Login.css'
+// import './Login.css'
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -48,33 +48,43 @@ function Login() {
 
 
     return (
-        <div className="parent">
-            <div className="wrapper">
-                <h2>Login</h2>
-                <form onSubmit={handleLogin}>
-                    <div className="input-box">
-                        <input type="text" 
-                               placeholder="Enter your email" 
-                               value={formData?.userName} 
-                               name="userName"
-                               onChange={handleChangeData}/>
-                    </div>
-                    <div className="input-box">
-                        <input type="password" 
-                               placeholder="Create password" 
-                               value={formData.password}
-                               name="password"
-                               onChange={handleChangeData} />
-                    </div>
-                    <div className="input-box button">
-                        <input type="Submit" value="Sign In" />
-                    </div>
-        
-                </form>
-
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                type="text"
+                id="text"
+                name="userName"
+                value={formData.userName}
+                onChange={handleChangeData}
+                required
+              />
             </div>
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+              <input
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChangeData}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Login
+            </button>
+          </form>
         </div>
-
+      </div>
     )
 }
 
