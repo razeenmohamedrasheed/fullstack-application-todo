@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import './Login.css'
 
 function Login() {
@@ -6,7 +7,7 @@ function Login() {
         userName:'',
         password:''
     });
-
+    const navigate = useNavigate()
     const handleChangeData=(e)=>{
         const {name,value} = e.target
         setFormData((prevFormData)=>({
@@ -34,7 +35,9 @@ function Login() {
             }
 
             const result = await response.json();
-            console.log('Success:', result);
+            if(result){
+              navigate('/dashboard/create')
+            }
 
         }catch(error){
             console.log(error)
@@ -53,7 +56,7 @@ function Login() {
           <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
               <input
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 type="text"
