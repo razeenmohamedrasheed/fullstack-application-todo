@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import registration
+from routers import registration,todos 
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
@@ -12,6 +12,7 @@ def welcome():
 
 
 app.include_router(registration.router)
+app.include_router(todos.router)
 
 origins = [
     "http://localhost.tiangolo.com",
