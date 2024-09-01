@@ -36,3 +36,30 @@ class DButils:
                 cursor.close()
             except Exception as e:
                 raise
+
+    def execute_query(self, query, required=False):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute(query)
+            if required:
+                columns = [desc[0] for desc in cursor.description]
+                rows = cursor.fetchall()
+                cursor.close()
+                result = [dict(zip(columns, row)) for row in rows]
+                return result
+            cursor.close()
+        except Exception as e:
+            print(e)
+            raise e
+        
+    def updateQuery(self, query):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute(query)
+            self.conn.commit()
+        except Exception as e:
+            self.conn.rollback() 
+            print(f"An error occurred: {e}")
+            raise e
+        finally:
+            cursor.close() 
